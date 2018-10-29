@@ -117,6 +117,7 @@ class MQTTclientTxt:
     name = "Start a new MQTT subscription "
     description = ("A MQTT subscriber")
     actionName = "MQTT subscriber name: "
+    cidName = "MQTT client id:"
     hostName =   "Host ip or name: "
     portName =   "Port number:      "
     topicName =  "Topic: "
@@ -135,6 +136,7 @@ class publishMQTTtxt:
     description = ("A MQTT message")
     empty = '>>EMPTY<<'
     actionName =  "MQTT publisher name: "
+    cidName = "MQTT client id:"
     hostName =    "Host ip or name: "
     portName =    "Port number:      "
     topicName =   "Topic: "
@@ -153,6 +155,7 @@ class publishBinaryMQTTtxt:
     description = ("A MQTT binary message")
     empty = '>>EMPTY<<'
     actionName =  "MQTT publisher name: "
+    cidName = "MQTT client id:"
     hostName =    "Host ip or name: "
     portName =    "Port number:      "
     topicName =   "Topic: "
@@ -983,10 +986,16 @@ class MQTTclient(eg.ActionClass):
         mySizer_7 = wx.GridBagSizer(10, 10)
 
         #name
-        nameCtrl = wx.TextCtrl(panel, -1, name)
-        nameCtrl.SetInitialSize((250,-1))
-        mySizer_1.Add(wx.StaticText(panel, -1, self.text.actionName), (0,0))
-        mySizer_1.Add(nameCtrl, (1,0))
+        #nameCtrl = wx.TextCtrl(panel, -1, name)
+        #nameCtrl.SetInitialSize((250,-1))
+        #mySizer_1.Add(wx.StaticText(panel, -1, self.text.actionName), (0,0))
+        #mySizer_1.Add(nameCtrl, (1,0))
+
+        #cid
+        cidCtrl = wx.TextCtrl(panel, -1, cid)
+        cidCtrl.SetInitialSize((250,-1))
+        mySizer_1.Add(wx.StaticText(panel, -1, self.text.cidName), (0,0))
+        mySizer_1.Add(cidCtrl, (1,0))
 
         #host
         hostCtrl = wx.TextCtrl(panel, -1, host)
@@ -1064,11 +1073,12 @@ class MQTTclient(eg.ActionClass):
         def OnButton(event):
             # re-assign the OK button
             event.Skip()
-            name = nameCtrl.GetValue()
+            name = cidCtrl.GetValue()
             host = hostCtrl.GetValue()
             port = portCtrl.GetValue()
             topic = topicCtrl.GetValue()
             topicTrigger = tTopicCtrl.GetValue()
+            cid = cidCtrl.GetValue()
             persistentSession = pSessionCtrl.GetValue()
             ucred = ucredCtrl.GetValue()
             username = userCtrl.GetValue()
@@ -1129,11 +1139,12 @@ class MQTTclient(eg.ActionClass):
         )
 
         while panel.Affirmed():
-            name = nameCtrl.GetValue()
+            name = cidCtrl.GetValue()
             host = hostCtrl.GetValue()
             port = portCtrl.GetValue()
             topic = topicCtrl.GetValue()
             topicTrigger = tTopicCtrl.GetValue()
+            cid = cidCtrl.GetValue()
             persistentSession = pSessionCtrl.GetValue()
             ucred = ucredCtrl.GetValue()
             username = userCtrl.GetValue()
@@ -1260,10 +1271,16 @@ class publishMQTT(eg.ActionClass):
         mySizer_8 = wx.GridBagSizer(10, 10)
 
         #name
-        nameCtrl = wx.TextCtrl(panel, -1, name)
-        nameCtrl.SetInitialSize((250,-1))
-        mySizer_1.Add(wx.StaticText(panel, -1, self.text.actionName), (0,0))
-        mySizer_1.Add(nameCtrl, (1,0))
+        #nameCtrl = wx.TextCtrl(panel, -1, name)
+        #nameCtrl.SetInitialSize((250,-1))
+        #mySizer_1.Add(wx.StaticText(panel, -1, self.text.actionName), (0,0))
+        #mySizer_1.Add(nameCtrl, (1,0))
+
+        #cid
+        cidCtrl = wx.TextCtrl(panel, -1, cid)
+        cidCtrl.SetInitialSize((250,-1))
+        mySizer_1.Add(wx.StaticText(panel, -1, self.text.cidName), (0,0))
+        mySizer_1.Add(cidCtrl, (1,0))
 
         #host
         hostCtrl = wx.TextCtrl(panel, -1, host)
@@ -1347,13 +1364,14 @@ class publishMQTT(eg.ActionClass):
             cid = str(tr).split('.')[1]
 
         while panel.Affirmed():
-            name = nameCtrl.GetValue()
+            name = cidCtrl.GetValue()
             host = hostCtrl.GetValue()
             port = portCtrl.GetValue()
             ucred = ucredCtrl.GetValue()
             username = userCtrl.GetValue()
             password = pwordCtrl.GetValue()
             utls = utlsCtrl.GetValue()
+            cid = cidCtrl.GetValue()
             ca_certs = certsCtrl.GetValue()
             topic = topicCtrl.GetValue()
             message = messageCtrl.GetValue()
@@ -1483,10 +1501,16 @@ class publishBinaryMQTT(eg.ActionClass):
         mySizer_8 = wx.GridBagSizer(10, 10)
 
         #name
-        nameCtrl = wx.TextCtrl(panel, -1, name)
-        nameCtrl.SetInitialSize((250,-1))
-        mySizer_1.Add(wx.StaticText(panel, -1, self.text.actionName), (0,0))
-        mySizer_1.Add(nameCtrl, (1,0))
+        #nameCtrl = wx.TextCtrl(panel, -1, name)
+        #nameCtrl.SetInitialSize((250,-1))
+        #mySizer_1.Add(wx.StaticText(panel, -1, self.text.actionName), (0,0))
+        #mySizer_1.Add(nameCtrl, (1,0))
+
+        #cid
+        cidCtrl = wx.TextCtrl(panel, -1, cid)
+        cidCtrl.SetInitialSize((250,-1))
+        mySizer_1.Add(wx.StaticText(panel, -1, self.text.cidName), (0,0))
+        mySizer_1.Add(cidCtrl, (1,0))
 
         #host
         hostCtrl = wx.TextCtrl(panel, -1, host)
@@ -1579,12 +1603,13 @@ class publishBinaryMQTT(eg.ActionClass):
             cid = str(tr).split('.')[1]
 
         while panel.Affirmed():
-            name = nameCtrl.GetValue()
+            name = cidCtrl.GetValue()
             host = hostCtrl.GetValue()
             port = portCtrl.GetValue()
             ucred = ucredCtrl.GetValue()
             username = userCtrl.GetValue()
             password = pwordCtrl.GetValue()
+            cid = cidCtrl.GetValue()
             utls = utlsCtrl.GetValue()
             ca_certs = certsCtrl.GetValue()
             topic = topicCtrl.GetValue()
